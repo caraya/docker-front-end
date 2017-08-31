@@ -25,7 +25,7 @@ RUN gem install \
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Create the development environment
-RUN  mkdir /app/code/ && chmod 777 /app/code/
+RUN  mkdir app/code/ && chmod 777 app/code/
 
 # If this works it should copy the package.json and gulpfile.js to the code directory
 COPY package.json gulpfile.js /app/
@@ -46,15 +46,11 @@ RUN npm install -g \
     # firebase-tools \
     gulp-cli \
     netlify-cli \
-    npm
-    # polymer-cli \
-
-# Install packages for version 6
-RUN npm install
+    && npm install
 
 # Expose default gulp port
 EXPOSE 3000
 
 # Run with bash
-WORKDIR /app/code/
+WORKDIR app/code/
 CMD ["/bin/bash"]
