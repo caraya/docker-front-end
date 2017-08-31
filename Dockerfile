@@ -17,7 +17,7 @@ RUN apt-get update && apt-get -y -q --no-install-recommends install \
 
 # Install gems for sass and scss lint. We do it in a separate pass to make sure
 # that rubygems is available before using it
-RUN gem --no-document install \
+RUN gem install \
     sass \
     scss_lint
 
