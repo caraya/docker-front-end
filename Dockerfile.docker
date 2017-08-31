@@ -52,5 +52,5 @@ RUN npm install -g \
 EXPOSE 3000
 
 # Run with bash
-WORKDIR app/code/
+WORKDIR /app/
 CMD ["/bin/bash"]
