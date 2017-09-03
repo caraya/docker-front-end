@@ -13,7 +13,9 @@ RUN apt-get update && apt-get -y -q --no-install-recommends install \
     python-dev \
     ruby \
     ruby-dev \
-    rubygems
+    rubygems \
+    # Remove the package installers to make image smaller :o)
+    && rm -rf /var/lib/apt/lists/*
 
 # Install gems for sass and scss lint. We do it in a separate pass to make sure
 # that rubygems is available before using it
