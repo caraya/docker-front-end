@@ -1,5 +1,5 @@
 # Use the latest version of Ubuntu
-FROM bitnami/node:8.4.0-r1
+FROM bitnami/node:8.9.3-r0
 
 # Fetch and install system tools
 RUN apt-get update && apt-get -y -q --no-install-recommends install \
