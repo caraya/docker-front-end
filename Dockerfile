@@ -1,5 +1,5 @@
 # Use the latest version of Ubuntu
-FROM bitnami/node:8.9.3-r0
+FROM bitnami/node:latest
 
 # Fetch and install system tools
 RUN apt-get update && apt-get -y -q --no-install-recommends install \
@@ -11,17 +11,8 @@ RUN apt-get update && apt-get -y -q --no-install-recommends install \
     libffi-dev \
     python \
     python-dev \
-    ruby \
-    ruby-dev \
-    rubygems \
     # Remove the package installers to make image smaller :o)
     && rm -rf /var/lib/apt/lists/*
-
-# Install gems for sass and scss lint. We do it in a separate pass to make sure
-# that rubygems is available before using it
-RUN gem install \
-    sass \
-    scss_lint
 
 # Make bash the default shell by removing /bin/sh and linking bash to it
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
@@ -29,7 +20,8 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # Create the development environment
 RUN  mkdir -p /app/code/ && chmod 777 /app/code/
 
-# If this works it should copy the package.json and gulpfile.js to the code directory
+# If this works it should copy the package.json
+# and gulpfile.js to the code directory
 COPY package.json gulpfile.js /app/
 
 # Make the tree under /opt/bitnami/node/lib/ publically writeable
@@ -43,11 +35,7 @@ RUN npm install -g \
 
 # Install global packages
 RUN npm install -g \
-    assemble \
-    eslint \
-    # firebase-tools \
     gulp-cli \
-    netlify-cli \
     && npm install
 
 # Expose default gulp port
