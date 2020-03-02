@@ -22,21 +22,24 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Create a user
 RUN groupadd -r newuser && useradd -r -g newuser newuser
-# Set the user as the current user
-USER newuser
 
+# Set the root as user to create directories in /home,
+# see if this works
+USER newuser
 
 # Create the development environment
 RUN mkdir -p /home/newuser/code/\
     && chmod -R 777 /home/newuser/code/\
     && chown -R newuser:newuser /home/newuser
 
+# Set the user as the current user
+USER newuser
 # Set the working directory
 WORKDIR /home/newuser
 
 # If this works it should copy the package.json
 # and gulpfile.js to the code directory
-COPY package.json gulpfile.js /app/
+COPY package.json gulpfile.js /home/newuser/
 
 # Make the tree under /opt/bitnami/node/ publically writeable
 # and make newuser the owner
