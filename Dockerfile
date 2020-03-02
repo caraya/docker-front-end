@@ -2,7 +2,7 @@
 FROM bitnami/node:latest
 
 # Fetch and install system tools
-RUN apt-get update && apt-get -y -q install \
+RUN apt-get update && apt-get -y -q --no-install-recommends install \
     build-essential \
     curl \
     bash \
@@ -32,14 +32,14 @@ RUN /bin/bash -c "chmod -R 777 /opt/bitnami/node/lib/"
 RUN /bin/bash -c "chmod -R 777 /opt/bitnami/node/lib/node_modules/"
 
 # Install Gyp related tools for Node binary packages
-RUN npm install -g \
+RUN npm install -g --no-optional \
     node-pre-gyp \
     node-gyp
 
 # Install global packages
 RUN npm install -g \
     gulp-cli \
-    && npm install
+    && npm install --no-optional
 
 # Expose default gulp port
 EXPOSE 3000
