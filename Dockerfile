@@ -20,28 +20,27 @@ RUN apt-get update && apt-get -y -q --no-install-recommends install \
 # Make bash the default shell by removing /bin/sh and linking bash to it
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-# RUN useradd -ms /bin/bash newuser
-# USER newuser
-# WORKDIR /home/newuser
-
 # Create a user
-RUN useradd -m -d /app -s /bin/sh -g root -G sudo -u 1000 newuser
+RUN groupadd -r newuser && useradd -r -g newuser newuser
 # Set the user as the current user
 USER newuser
 # Set the working directory
 WORKDIR /app
 
 # Create the development environment
-RUN  mkdir -p /app/code/ && chmod -R 777 /app/code/
+RUN mkdir -p /app/code/\
+    && chmod -R 777 /app/code/\
+    && chown -R newuser:newuser /app
 
 # If this works it should copy the package.json
 # and gulpfile.js to the code directory
 COPY package.json gulpfile.js /app/
 
-# Make the tree under /opt/bitnami/node/lib/ publically writeable
-RUN /bin/bash -c "chmod -R 777 /opt/bitnami/node/"
-RUN /bin/bash -c "chmod -R 777 /opt/bitnami/node/lib/"
-RUN /bin/bash -c "chmod -R 777 /opt/bitnami/node/lib/node_modules/"
+# Make the tree under /opt/bitnami/node/ publically writeable
+# and make newuser the owner
+# In theory, this shouold fix
+RUN chmod -R 777 /opt/bitnami/node/\
+    chown -R newuser:newuser /opt/bitnami/node
 
 # Install Gyp related tools for Node binary packages
 RUN npm install -g \
