@@ -11,9 +11,9 @@ RUN apt-get update && apt-get -y -q --no-install-recommends install \
     libffi-dev \
     python \
     python-dev \
-    libvips-dev\
-    libvips-tools\
-    libvips42\
+    # libvips-dev\
+    # libvips-tools\
+    # libvips42\
     # Remove the package installers to make image smaller :o)
     && rm -rf /var/lib/apt/lists/*
 
