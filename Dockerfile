@@ -24,13 +24,15 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN groupadd -r newuser && useradd -r -g newuser newuser
 # Set the user as the current user
 USER newuser
-# Set the working directory
-WORKDIR /app
+
 
 # Create the development environment
-RUN mkdir -p /app/code/\
-    && chmod -R 777 /app/code/\
-    && chown -R newuser:newuser /app
+RUN mkdir -p /home/newuser/code/\
+    && chmod -R 777 /home/newuser/code/\
+    && chown -R newuser:newuser /home/newuser
+
+# Set the working directory
+WORKDIR /home/newuser
 
 # If this works it should copy the package.json
 # and gulpfile.js to the code directory
