@@ -20,6 +20,17 @@ RUN apt-get update && apt-get -y -q --no-install-recommends install \
 # Make bash the default shell by removing /bin/sh and linking bash to it
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
+# RUN useradd -ms /bin/bash newuser
+# USER newuser
+# WORKDIR /home/newuser
+
+# Create a user
+RUN useradd -m -d /app -s /bin/sh -g root -G sudo -u 1000 ubuntu
+# Set the user as the current user
+USER ubuntu
+# Set the working directory
+WORKDIR /app
+
 # Create the development environment
 RUN  mkdir -p /app/code/ && chmod -R 777 /app/code/
 
