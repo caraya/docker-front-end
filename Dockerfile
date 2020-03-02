@@ -2,7 +2,7 @@
 FROM bitnami/node:latest
 
 # Fetch and install system tools
-RUN apt-get update && apt-get -y -q --no-install-recommends install \
+RUN apt-get update && apt-get -y -q install \
     build-essential \
     curl \
     bash \
@@ -11,6 +11,8 @@ RUN apt-get update && apt-get -y -q --no-install-recommends install \
     libffi-dev \
     python \
     python-dev \
+    vips\
+    vips-dev\
     # Remove the package installers to make image smaller :o)
     && rm -rf /var/lib/apt/lists/*
 
