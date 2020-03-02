@@ -21,13 +21,14 @@ RUN apt-get update && apt-get -y -q --no-install-recommends install \
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Create the development environment
-RUN  mkdir -p /app/code/ && chmod 777 /app/code/
+RUN  mkdir -p /app/code/ && chmod -R 777 /app/code/
 
 # If this works it should copy the package.json
 # and gulpfile.js to the code directory
 COPY package.json gulpfile.js /app/
 
 # Make the tree under /opt/bitnami/node/lib/ publically writeable
+RUN /bin/bash -c "chmod -R 777 /opt/bitnami/node/"
 RUN /bin/bash -c "chmod -R 777 /opt/bitnami/node/lib/"
 RUN /bin/bash -c "chmod -R 777 /opt/bitnami/node/lib/node_modules/"
 
