@@ -11,25 +11,19 @@ const $ = require('gulp-load-plugins')({
 const browserSync = require('browser-sync');
 // Testing
 const server = browserSync.create();
-
 // const reload = browserSync.reload;
 const historyApiFallback = require('connect-history-api-fallback');
-
 // postcss
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 // SASS
 const sass = require('gulp-sass');
 sass.compiler = require('node-sass');
-// Critical CSS
-const critical = require('critical');
-
 // Imagemin and Plugins
 const imagemin = require('gulp-imagemin');
 const mozjpeg = require('imagemin-mozjpeg');
 // const imageminGuetzli = require('imagemin-guetzli');
 const imageminWebp = require('imagemin-webp');
-
 // Accessibility
 const axe = require('gulp-axe-webdriver');
 // Utilities
@@ -83,39 +77,6 @@ gulp.task('processCSS', () => {
 UNCSS IS NOW A POSTCSS PLUGIN AND THEY
 SUGGEST YOU USE IT WITH OTHER POSTCSS TOOLS
 */
-
-/**
- * @name generateCriticalCSS
- *
- * @return {void}
- */
-gulp.task('critical', () => {
-  return gulp.src('./src/*.html')
-    .pipe(critical({
-      base: './src/',
-      inline: true,
-      css: ['./src/css/main.css'],
-      minify: true,
-      extract: false,
-      ignore: ['font-face'],
-      dimensions: [{
-        width: 320,
-        height: 480,
-      }, {
-        width: 768,
-        height: 1024,
-      }, {
-        width: 1280,
-        height: 960,
-      }],
-    }))
-    .pipe($.size({
-      pretty: true,
-      title: 'Critical',
-    }))
-    .pipe(gulp.dest('dist'));
-});
-
 /**
  * @name babel
  * @description Transpiles ES6 to ES5 using Babel. As Node and browsers support more of the spec natively this will move to supporting ES2016 and later transpilation
@@ -421,7 +382,7 @@ npm i -D gulp node-sass gulp-sourcemaps\
   browser-sync connect-history-api-fallback \
   gulp-eslint eslint eslint-config-google \
   gulp-imagemin imagemin-mozjpeg imagemin-webp \
-  critical del gulp-load-plugins gulp-newer \
+  del gulp-load-plugins gulp-newer \
   gulp-remarkable gulp-size  gulp-wrap \
   gulp-axe-webdriver gulp-sass
 */

@@ -32,7 +32,7 @@ RUN /bin/bash -c "chmod -R 777 /opt/bitnami/node/lib/"
 RUN /bin/bash -c "chmod -R 777 /opt/bitnami/node/lib/node_modules/"
 
 # Install Gyp related tools for Node binary packages
-RUN npm install -g --no-optional \
+RUN npm install -g \
     node-pre-gyp \
     node-gyp
 
