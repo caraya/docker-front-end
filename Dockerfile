@@ -25,9 +25,9 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # WORKDIR /home/newuser
 
 # Create a user
-RUN useradd -m -d /app -s /bin/sh -g root -G sudo -u 1000 ubuntu
+RUN useradd -m -d /app -s /bin/sh -g root -G sudo -u 1000 newuser
 # Set the user as the current user
-USER ubuntu
+USER newuser
 # Set the working directory
 WORKDIR /app
 
